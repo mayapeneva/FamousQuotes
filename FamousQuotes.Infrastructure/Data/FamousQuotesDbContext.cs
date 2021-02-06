@@ -1,15 +1,16 @@
 ﻿namespace FamousQuotes.Infrastructure.Data
 {
     using FamousQuotes.Infrastructure.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class FamousQuotesDbContext : DbContext
+    public class FamousQuotesDbContext : IdentityDbContext<User>
     {
         public FamousQuotesDbContext()
         {
         }
 
-        public FamousQuotesDbContext(DbContextOptions options)
+        public FamousQuotesDbContext(DbContextOptions<FamousQuotesDbContext> options)
             : base(options)
         {
         }
