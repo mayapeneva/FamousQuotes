@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamousQuotes.App", "FamousQuotes.App\FamousQuotes.App.csproj", "{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamousQuotes.App", "FamousQuotes.App\FamousQuotes.App.csproj", "{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamousQuotes.Infrastructure", "FamousQuotes.Infrastructure\FamousQuotes.Infrastructure.csproj", "{9886022C-99A5-4998-9235-41A0CEBEC6CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9886022C-99A5-4998-9235-41A0CEBEC6CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9886022C-99A5-4998-9235-41A0CEBEC6CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9886022C-99A5-4998-9235-41A0CEBEC6CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9886022C-99A5-4998-9235-41A0CEBEC6CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
