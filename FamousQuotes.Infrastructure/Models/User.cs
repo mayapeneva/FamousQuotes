@@ -9,7 +9,7 @@
         private readonly ICollection<Answer> answers;
         public User()
         {
-            this.answers = new HashSet<Answer>();
+            answers = new HashSet<Answer>();
         }
 
         public virtual IReadOnlyCollection<Answer> Answers { get; private set; }
@@ -24,7 +24,7 @@
             }
 
             answers.Add(new Answer(quoteId, author));
-            this.Score++;
+            Score++;
             return true;
         }
     }

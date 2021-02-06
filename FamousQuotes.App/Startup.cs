@@ -1,5 +1,6 @@
 namespace FamousQuotes.App
 {
+    using FamousQuotes.App.Extensions;
     using FamousQuotes.Infrastructure.Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -44,7 +45,7 @@ namespace FamousQuotes.App
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSeedQuotesMiddleware();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

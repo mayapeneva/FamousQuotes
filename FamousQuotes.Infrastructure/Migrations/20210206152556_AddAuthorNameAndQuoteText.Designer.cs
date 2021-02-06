@@ -4,14 +4,16 @@ using FamousQuotes.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FamousQuotes.Infrastructure.Migrations
 {
     [DbContext(typeof(FamousQuotesDbContext))]
-    partial class FamousQuotesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210206152556_AddAuthorNameAndQuoteText")]
+    partial class AddAuthorNameAndQuoteText
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,14 +34,17 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.Property<int>("QuoteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuoteId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Answer");
                 });
@@ -144,7 +149,7 @@ namespace FamousQuotes.Infrastructure.Migrations
 
                     b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
                         .WithMany("Answers")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Quote", b =>

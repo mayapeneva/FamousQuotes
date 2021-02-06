@@ -5,13 +5,16 @@
 
     public class Quote
     {
-        public Quote(int authorId)
+        public Quote(int authorId, string text)
         {
-            this.AuthorId = authorId;
+            AuthorId = authorId;
+            Text = text;
         }
 
         [Key]
         public int Id { get; private set; }
+
+        public string Text { get; private set; }
 
         [Required]
         public int AuthorId { get; private set; }

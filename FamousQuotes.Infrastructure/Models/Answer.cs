@@ -7,15 +7,12 @@
     {
         public Answer(int quoteId, string authorAsAnswered)
         { 
-            this.QuoteId = quoteId;
-            this.AuthorAsAnswered = authorAsAnswered;
+            QuoteId = quoteId;
+            AuthorAsAnswered = authorAsAnswered;
         }
 
         [Key]
         public int Id { get; private set; }
-
-        [Required]
-        public int UserId { get; set; }
 
         [Required]
         public int QuoteId { get; private set; }
