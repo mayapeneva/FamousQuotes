@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FamousQuotes.Infrastructure\FamousQuotes.Infrastructure.csproj" />
+    <ProjectReference Include="..\FamousQuotes.Services\FamousQuotes.Services.csproj" />
   </ItemGroup>
 
 </Project>

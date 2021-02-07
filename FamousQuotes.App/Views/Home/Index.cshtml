@@ -1,8 +1,23 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using FamousQuotes.Infrastructure.Models
+
+@inject SignInManager<User> SignInManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Famous Quotes Quiz</h1>
-    <p>In the famous quote quiz game you will be showed famous quotes and depending on selected mode you should either try to pick the correct author name from 3 possible names or you will need to guess if the author name given is the correct one.</p>
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <p>In the famous quote quiz game you will be showed famous quotes and depending on selected mode you should either try to pick the correct author name from 3 possible names or you will need to guess if the author name given is the correct one.</p>
+
+        <p>You should <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a> in order to play.</p>
+    }
+    else
+    {
+        <p><a id="login" asp-area="Identity" asp-page="/Account/Login">Play in binary mode</a>.</p>
+    }
 </div>
