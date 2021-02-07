@@ -3,6 +3,8 @@ namespace FamousQuotes.App
     using FamousQuotes.App.Extensions;
     using FamousQuotes.Infrastructure.Data;
     using FamousQuotes.Infrastructure.Models;
+    using FamousQuotes.Services;
+    using FamousQuotes.Services.Contracts;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -41,6 +43,9 @@ namespace FamousQuotes.App
                 .AddEntityFrameworkStores<FamousQuotesDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            // Application services
+            services.AddScoped<IGameService, GameService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

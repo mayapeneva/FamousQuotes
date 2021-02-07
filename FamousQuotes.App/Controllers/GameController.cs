@@ -33,7 +33,7 @@
         {
             var user = await GetUser();
             var question = gameService.GetRandomUnansweredQuote(user, true);
-            if (question.Score != null)
+            if (string.IsNullOrWhiteSpace(question.QuoteText))
             {
                 this.ViewData[Message] = GameOverMessage + question.Score;
                 return this.View();
@@ -48,7 +48,7 @@
         {
             User user = await GetUser();
             var question = gameService.GetRandomUnansweredQuote(user, false);
-            if (question.Score != null)
+            if (string.IsNullOrWhiteSpace(question.QuoteText))
             {
                 this.ViewData[Message] = GameOverMessage + question.Score;
                 return this.View();

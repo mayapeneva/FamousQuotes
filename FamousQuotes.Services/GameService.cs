@@ -7,7 +7,7 @@
     using System;
     using System.Linq;
 
-    internal class GameService : BaseService, IGameService
+    public class GameService : BaseService, IGameService
     {
         public GameService(FamousQuotesDbContext dbContext)
             : base(dbContext)
@@ -18,6 +18,18 @@
         {
             var unansweredQuotes = user.QuotesNotAnswered;
             var unansweredQuotesCount = unansweredQuotes.Count;
+
+            if (user.Score == 0 && unansweredQuotesCount == 0)
+            {
+                var quotesIds = DbContext.Quotes.Select(q => q.Id);
+                user.AddQuotes(quotesIds.AsEnumerable());
+
+                DbContext.Users.Update(user);
+                DbContext.SaveChanges();
+
+                unansweredQuotes = user.QuotesNotAnswered;
+                unansweredQuotesCount = unansweredQuotes.Count;
+            }            
 
             var randomQuote = new RandomQuoteDto();
             if (unansweredQuotesCount == 0)
@@ -76,6 +88,9 @@
                     result.AuthorName = answer.AuthorName;
                     result.IsAnswerTrue = true;
 
+                    DbContext.Users.Update(user);
+                    DbContext.SaveChanges();
+
                     return result;
                 }
 
@@ -89,6 +104,9 @@
                 user.AddNewQuoteAndAuthor(quote.Id, answer.AuthorName);
                 result.AuthorName = answer.AuthorName;
                 result.IsAnswerTrue = true;
+
+                DbContext.Users.Update(user);
+                DbContext.SaveChanges();
 
                 return result;
             }

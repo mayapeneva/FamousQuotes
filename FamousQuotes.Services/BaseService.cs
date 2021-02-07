@@ -2,7 +2,7 @@
 {
     using FamousQuotes.Infrastructure.Data;
 
-    internal abstract class BaseService
+    public abstract class BaseService
     {
         protected BaseService(FamousQuotesDbContext dbContext)
         {

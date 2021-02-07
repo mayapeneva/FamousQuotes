@@ -6,15 +6,14 @@
 
     public class User : IdentityUser
     {
-        private readonly ICollection<Answer> answers;
         private readonly ICollection<int> quotesNotAnswered;
         public User()
         {
-            answers = new HashSet<Answer>();
+            Answers = new HashSet<Answer>();
             quotesNotAnswered = new HashSet<int>();
         }
 
-        public virtual IReadOnlyCollection<Answer> Answers => answers.ToList().AsReadOnly();
+        public virtual ICollection<Answer> Answers { get; private set; }
 
         public int Score { get; private set; }
 
@@ -22,9 +21,14 @@
 
         public void AddNewQuoteAndAuthor(int quoteId, string author)
         {
-            answers.Add(new Answer(quoteId, author));
+            Answers.Add(new Answer(quoteId, author));
             quotesNotAnswered.Remove(quoteId);
             Score++;
+        }
+
+        public void AddQuotes(IEnumerable<int> quotesIds)
+        {
+            quotesIds.ToList().ForEach(q => quotesNotAnswered.Add(q));
         }
     }
 }
