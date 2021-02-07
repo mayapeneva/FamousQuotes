@@ -5,7 +5,7 @@
 
     public interface IGameService
     {
-        T GetRandomUnansweredQuote<T>(User user, bool isBinaryMode);
+        RandomQuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode);
 
         ResultDto SaveAnswer(User user, AnswerDto answer, bool isBinaryMode);
     }

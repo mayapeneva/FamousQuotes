@@ -12,6 +12,11 @@
     [Authorize]
     public class GameController : Controller
     {
+        private const string Message = "Message";
+        private const string GameOverMessage = "The game is over. Your score is ";
+        private const string CorrectAnswerMessage = "Correct! The right answer is: ";
+        private const string WrongAnswerMessage = "Sorry, you are wrong! The right answer is: ";
+
         private readonly UserManager<User> userManager;
         private readonly IGameService gameService;
 
@@ -26,65 +31,81 @@
         [HttpGet]
         public async Task<ActionResult> PlayBinaryMode()
         {
-            var user = await userManager.GetUserAsync(this.User);
-            var question = gameService.GetRandomUnansweredQuote<RandomQuoteBinaryModeDto>(user, true);
+            var user = await GetUser();
+            var question = gameService.GetRandomUnansweredQuote(user, true);
             if (question.Score != null)
             {
-                this.ViewData["Error"] = $"The game is over. Your score is {question.Score}.";
+                this.ViewData[Message] = GameOverMessage + question.Score;
                 return this.View();
             }
 
-            // TODO: quote should be mapped to a viewModel and passed to the relevant view
+            // TODO: quote should be mapped to a viewModel and passed to the view below
             return View();
         }
 
         [HttpGet]
         public async Task<ActionResult> PlayMultipleChoicesMode()
         {
-            var user = await userManager.GetUserAsync(this.User);
-            var question = gameService.GetRandomUnansweredQuote<RandomQuoteMultipleChoicesModeDto>(user, false);
+            User user = await GetUser();
+            var question = gameService.GetRandomUnansweredQuote(user, false);
             if (question.Score != null)
             {
-                this.ViewData["Message"] = $"The game is over. Your score is {question.Score}.";
+                this.ViewData[Message] = GameOverMessage + question.Score;
                 return this.View();
             }
 
-            // TODO: quote should be mapped to a viewModel and passed to the relevant view
+            // TODO: quote should be mapped to a viewModel and passed to the view below
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> PlayBinaryMode(AnswerBindingModel answer)
         {
-            var user = await userManager.GetUserAsync(this.User);
-            //TODO: map the binding model to dto
-            var answerDto = new AnswerDto();
+            var user = await GetUser();
+            //TODO: map the binding model to dto with mapper
+            var answerDto = new AnswerDto
+            {
+                QuoteText = answer.QuoteText,
+                AuthorName = answer.AuthorName,
+                IsAnswerTrue = answer.IsAnswerTrue
+            };
+
             var result = gameService.SaveAnswer(user, answerDto, true);
             if (result.IsAnswerTrue)
             {
-                this.ViewData["Message"] = $"Correct! The right answer is: {result.AuthorName}.";
+                this.ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
                 return this.View();
             }
 
-            this.ViewData["Message"] = $"Sorry, you are wrong! The right answer is: {result.AuthorName}.";
+            this.ViewData[Message] = WrongAnswerMessage + result.AuthorName;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> PlayMultipleChoicesMode(AnswerBindingModel answer)
         {
-            var user = await userManager.GetUserAsync(this.User);
-            //TODO: map the binding model to dto
-            var answerDto = new AnswerDto();
+            var user = await GetUser();
+            //TODO: map the binding model to dto with mapper
+            var answerDto = new AnswerDto
+            {
+                QuoteText = answer.QuoteText,
+                AuthorName = answer.AuthorName
+            };
+
             var result = gameService.SaveAnswer(user, answerDto, false);
             if (result.IsAnswerTrue)
             {
-                this.ViewData["Message"] = $"Correct! The right answer is: {result.AuthorName}.";
+                this.ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
                 return this.View();
             }
 
-            this.ViewData["Message"] = $"Sorry, you are wrong! The right answer is: {result.AuthorName}.";
+            this.ViewData[Message] = WrongAnswerMessage + result.AuthorName;
             return View();
+        }
+
+        private async Task<User> GetUser()
+        {
+            return await userManager.GetUserAsync(this.User);
         }
     }
 }

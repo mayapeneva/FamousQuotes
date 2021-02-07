@@ -2,10 +2,10 @@
 {
     public class AnswerDto
     {
-        public QuoteDto Quote { get; set; }
+        public string QuoteText { get; set; }
 
-        public AuthorDto Author { get; set; }
+        public string AuthorName { get; set; }
 
-        public bool IsAnswerTrue { get; set; }
+        public bool? IsAnswerTrue { get; set; }
     }
 }
