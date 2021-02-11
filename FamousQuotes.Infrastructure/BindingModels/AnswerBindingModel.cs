@@ -1,4 +1,4 @@
-﻿namespace FamousQuotes.App.Models.BindingModels
+﻿namespace FamousQuotes.Infrastructure.BindingModels
 {
     public class AnswerBindingModel
     {
@@ -9,4 +9,3 @@
         public bool? IsAnswerTrue { get; set; }
     }
 }
-

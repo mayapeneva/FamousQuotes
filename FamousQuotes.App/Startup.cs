@@ -30,10 +30,11 @@ namespace FamousQuotes.App
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<FamousQuotesDbContext>(options =>
                 options.UseSqlServer("Server=.\\SQLExpress;Database=FamousQuotes;Trusted_Connection=True")
