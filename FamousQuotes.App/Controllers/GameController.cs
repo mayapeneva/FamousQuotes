@@ -30,7 +30,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> PlayBinaryMode()
+        public async Task<ActionResult> IndexBinaryMode()
         {
             var user = await GetUser();
             var question = gameService.GetRandomUnansweredQuote(user, true);
@@ -45,7 +45,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> PlayMultipleChoicesMode()
+        public async Task<ActionResult> IndexMultipleChoicesMode()
         {
             User user = await GetUser();
             var question = gameService.GetRandomUnansweredQuote(user, false);
@@ -60,7 +60,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> PlayBinaryMode(AnswerBindingModel answer)
+        public async Task<ActionResult> AnswerBinaryMode(AnswerBindingModel answer)
         {
             var user = await GetUser();
             var answerDto = Mapper.Map<AnswerDto>(answer);
@@ -76,7 +76,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> PlayMultipleChoicesMode(AnswerBindingModel answer)
+        public async Task<ActionResult> AnswerMultipleChoicesMode(AnswerBindingModel answer)
         {
             var user = await GetUser();
             var answerDto = Mapper.Map<AnswerDto>(answer);

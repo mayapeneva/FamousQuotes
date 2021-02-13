@@ -25,7 +25,7 @@
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=FamousQuotes;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=localhost\\DESKTOP-FE7CT57;Database=FamousQuotes;Trusted_Connection=True");
             }
 
             optionsBuilder.UseLazyLoadingProxies(true);

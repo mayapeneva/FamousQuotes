@@ -37,7 +37,7 @@ namespace FamousQuotes.App
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<FamousQuotesDbContext>(options =>
-                options.UseSqlServer("Server=.\\SQLExpress;Database=FamousQuotes;Trusted_Connection=True")
+                options.UseSqlServer("Server=localhost\\DESKTOP-FE7CT57;Database=FamousQuotes;Trusted_Connection=True")
                     .UseLazyLoadingProxies());
 
             services.AddIdentity<User, IdentityRole>()
