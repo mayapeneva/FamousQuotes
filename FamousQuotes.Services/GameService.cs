@@ -14,7 +14,7 @@
         {
         }
 
-        public RandomQuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode)
+        public QuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode)
         {
             var unansweredQuotes = user.QuotesNotAnswered;
             var unansweredQuotesCount = unansweredQuotes.Count;
@@ -31,7 +31,7 @@
                 unansweredQuotesCount = unansweredQuotes.Count;
             }            
 
-            var randomQuote = new RandomQuoteDto();
+            var randomQuote = new QuoteDto();
             if (unansweredQuotesCount == 0)
             {
                 randomQuote.Score = user.Score;
@@ -51,6 +51,7 @@
             var randomAuthorOneIndex = random.Next(authorsCount);
             var authorOne = authors.ToArray()[randomAuthorOneIndex - 1];
 
+            randomQuote.QuoteId = quote.Id;
             randomQuote.QuoteText = quote.Text;
             randomQuote.AuthorOneName = authorOne.Name;
 
@@ -77,7 +78,7 @@
                 AuthorName = answer.AuthorName
             };
 
-            var quote = DbContext.Quotes.FirstOrDefault(q => q.Text == answer.QuoteText);
+            var quote = DbContext.Quotes.FirstOrDefault(q => q.Id == answer.QuoteId);
             var rightAuthorName = quote.Author.Name;
             if (isBinaryMode)
             {

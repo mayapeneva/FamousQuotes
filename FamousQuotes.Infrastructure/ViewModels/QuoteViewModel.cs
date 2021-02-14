@@ -1,6 +1,6 @@
-﻿namespace FamousQuotes.Services.DTOs
+﻿namespace FamousQuotes.Infrastructure.ViewModels
 {
-    public class RandomQuoteDto
+    public class QuoteViewModel
     {
         public string QuoteText { get; set; }
 
@@ -9,7 +9,5 @@
         public string AuthorTwoName { get; set; }
 
         public string AuthorThreeName { get; set; }
-
-        public int? Score { get; set; }
     }
 }

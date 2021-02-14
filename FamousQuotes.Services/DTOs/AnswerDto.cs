@@ -1,11 +1,8 @@
 ﻿namespace FamousQuotes.Services.DTOs
 {
-    using FamousQuotes.Infrastructure.BindingModels;
-    using FamousQuotes.Infrastructure.Mapping.Contracts;
-
-    public class AnswerDto : IMapFrom<AnswerBindingModel>
+    public class AnswerDto
     {
-        public string QuoteText { get; set; }
+        public int QuoteId { get; set; }
 
         public string AuthorName { get; set; }
 

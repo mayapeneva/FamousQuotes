@@ -1,7 +1,17 @@
-﻿@{
+﻿@model QuoteViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">    
-
+<div class="card text-center" style="width: 18rem;">
+    <img src="~/images/ImageTop.JPG" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="text-left grey-text">Who Said It?</h5>
+        <p class="pink-background">@Model.QuoteText</p>
+        <p class="grey-text">@Model.AuthorOneName?</p>
+        <form id="IsAnswerTrue" asp-controller="Game" asp-action="PlayBinaryMode" asp-for="answer" method="post">
+            <input type="submit" name="answer" value="Yes" class="left-align green-background">
+            <input type="submit" name="answer" value="No" class="right-align pink-background">
+        </form>
+    </div>
 </div>

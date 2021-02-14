@@ -3,9 +3,11 @@
     using AutoMapper;
     using FamousQuotes.Infrastructure.BindingModels;
     using FamousQuotes.Infrastructure.Models;
+    using FamousQuotes.Infrastructure.ViewModels;
     using FamousQuotes.Services.Contracts;
     using FamousQuotes.Services.DTOs;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -13,6 +15,9 @@
     [Authorize]
     public class GameController : BaseController
     {
+        private const string QuoteId = "QuoteId";
+        private const string AuthorName = "AuthorName";
+
         private const string Message = "Message";
         private const string GameOverMessage = "The game is over. Your score is ";
         private const string CorrectAnswerMessage = "Correct! The right answer is: ";
@@ -33,61 +38,70 @@
         public async Task<ActionResult> IndexBinaryMode()
         {
             var user = await GetUser();
-            var question = gameService.GetRandomUnansweredQuote(user, true);
-            if (string.IsNullOrWhiteSpace(question.QuoteText))
+            var quote = gameService.GetRandomUnansweredQuote(user, true);
+            if (string.IsNullOrWhiteSpace(quote.QuoteText))
             {
-                this.ViewData[Message] = GameOverMessage + question.Score;
+                ViewData[Message] = GameOverMessage + quote.Score;
                 return this.View();
             }
 
-            // TODO: quote should be mapped to a viewModel and passed to the view below
-            return View();
+            HttpContext.Session.SetInt32(QuoteId, quote.QuoteId);
+            HttpContext.Session.SetString(AuthorName, quote.AuthorOneName);
+
+            var quoteViewModel = Mapper.Map<QuoteViewModel>(quote);
+            return View(quoteViewModel);
         }
 
         [HttpGet]
         public async Task<ActionResult> IndexMultipleChoicesMode()
         {
             User user = await GetUser();
-            var question = gameService.GetRandomUnansweredQuote(user, false);
-            if (string.IsNullOrWhiteSpace(question.QuoteText))
+            var quote = gameService.GetRandomUnansweredQuote(user, false);
+            if (string.IsNullOrWhiteSpace(quote.QuoteText))
             {
-                this.ViewData[Message] = GameOverMessage + question.Score;
+                ViewData[Message] = GameOverMessage + quote.Score;
                 return this.View();
             }
 
-            // TODO: quote should be mapped to a viewModel and passed to the view below
-            return View();
+            var quoteViewModel = Mapper.Map<QuoteViewModel>(quote);
+            return View(quoteViewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AnswerBinaryMode(AnswerBindingModel answer)
+        public async Task<ActionResult> PlayBinaryMode([FromForm]string answer)
         {
             var user = await GetUser();
-            var answerDto = Mapper.Map<AnswerDto>(answer);
+            var answerDto = new AnswerDto
+            {
+                QuoteId = (int)HttpContext.Session.GetInt32(QuoteId),
+                AuthorName = HttpContext.Session.GetString(AuthorName),
+                IsAnswerTrue = answer == "Yes"
+            };
+
             var result = gameService.SaveAnswer(user, answerDto, true);
             if (result.IsAnswerTrue)
             {
-                this.ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
+                ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
                 return this.View();
             }
 
-            this.ViewData[Message] = WrongAnswerMessage + result.AuthorName;
+            ViewData[Message] = WrongAnswerMessage + result.AuthorName;
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> AnswerMultipleChoicesMode(AnswerBindingModel answer)
+        public async Task<ActionResult> PlayMultipleChoicesMode(AnswerBindingModel answer)
         {
             var user = await GetUser();
             var answerDto = Mapper.Map<AnswerDto>(answer);
             var result = gameService.SaveAnswer(user, answerDto, false);
             if (result.IsAnswerTrue)
             {
-                this.ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
+                ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
                 return this.View();
             }
 
-            this.ViewData[Message] = WrongAnswerMessage + result.AuthorName;
+            ViewData[Message] = WrongAnswerMessage + result.AuthorName;
             return View();
         }
 

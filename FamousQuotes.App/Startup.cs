@@ -13,6 +13,7 @@ namespace FamousQuotes.App
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using System;
 
     public class Startup
     {
@@ -25,19 +26,28 @@ namespace FamousQuotes.App
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<FamousQuotesDbContext>(options =>
-                options.UseSqlServer("Server=localhost\\DESKTOP-FE7CT57;Database=FamousQuotes;Trusted_Connection=True")
+                options.UseSqlServer("Server=.\\SQLExpress;Database=FamousQuotes;Trusted_Connection=True")
                     .UseLazyLoadingProxies());
 
             services.AddIdentity<User, IdentityRole>()
@@ -70,6 +80,8 @@ namespace FamousQuotes.App
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
