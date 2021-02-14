@@ -20,8 +20,8 @@
 
         private const string Message = "Message";
         private const string GameOverMessage = "The game is over. Your score is ";
-        private const string CorrectAnswerMessage = "Correct! The right answer is: ";
-        private const string WrongAnswerMessage = "Sorry, you are wrong! The right answer is: ";
+        private const string CorrectAnswerMessage = "Correct!\n The right answer is:\n";
+        private const string WrongAnswerMessage = "Sorry, you are wrong!\n The right answer is:\n";
 
         private readonly IGameService gameService;
 
@@ -79,14 +79,19 @@
             };
 
             var result = gameService.SaveAnswer(user, answerDto, true);
+            var resultViewModel = new ResultViewModel
+            {
+                WasAnswerTrue = result.IsAnswerTrue
+            };
+
             if (result.IsAnswerTrue)
             {
-                ViewData[Message] = CorrectAnswerMessage + result.AuthorName;
-                return this.View();
+                resultViewModel.Message = CorrectAnswerMessage + result.AuthorName;
+                return this.View(resultViewModel);
             }
 
-            ViewData[Message] = WrongAnswerMessage + result.AuthorName;
-            return View();
+            resultViewModel.Message = WrongAnswerMessage + result.AuthorName;
+            return View(resultViewModel);
         }
 
         [HttpPost]
@@ -103,11 +108,6 @@
 
             ViewData[Message] = WrongAnswerMessage + result.AuthorName;
             return View();
-        }
-
-        private async Task<User> GetUser()
-        {
-            return await UserManager.GetUserAsync(this.User);
         }
     }
 }

@@ -83,7 +83,8 @@
             if (isBinaryMode)
             {
                 var isAnswerTrue = answer.IsAnswerTrue != null ? answer.IsAnswerTrue : false;
-                if (answer.AuthorName == rightAuthorName && isAnswerTrue == true)
+                if (answer.AuthorName == rightAuthorName && isAnswerTrue == true
+                    || answer.AuthorName != rightAuthorName && isAnswerTrue == false)
                 {
                     user.AddNewQuoteAndAuthor(quote.Id, answer.AuthorName);
                     result.AuthorName = answer.AuthorName;

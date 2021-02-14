@@ -1,0 +1,20 @@
+﻿@model ResultViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card" style="width: 18rem;">
+    @if (@Model.WasAnswerTrue)
+    {
+        <p class="green-background">@Model.Message.</p>
+    }
+    else
+    {
+        <p class="pink-background">@Model.Message.</p>
+    }
+
+    <p><a class="card-link" asp-controller="Game" asp-action="IndexBinaryMode">Play more in binary mode</a></p>
+    <p><a class="card-link" asp-controller="Game" asp-action="IndexMultipleChoicesMode">Play more in multiple choices mode</a></p>
+    <p><a class="card-link" asp-controller="Review" asp-action="PersonalAchievements">Review Games</a></p>
+</div>
