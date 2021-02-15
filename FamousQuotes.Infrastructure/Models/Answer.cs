@@ -5,10 +5,11 @@
 
     public class Answer
     {
-        public Answer(int quoteId, string authorAsAnswered)
+        public Answer(int quoteId, string authorAsAnswered, bool? isAnswerTrue)
         { 
             QuoteId = quoteId;
             AuthorAsAnswered = authorAsAnswered;
+            IsAnswerTrue = isAnswerTrue;
         }
 
         [Key]
@@ -21,5 +22,7 @@
         public virtual Quote Quote { get; private set; }
 
         public string AuthorAsAnswered { get; private set; }
+
+        public bool? IsAnswerTrue { get; private set; }
     }
 }

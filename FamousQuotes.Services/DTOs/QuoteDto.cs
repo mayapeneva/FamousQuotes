@@ -12,6 +12,8 @@
 
         public string AuthorThreeName { get; set; }
 
+        public string CorrectAuthorName { get; set; }
+
         public int? Score { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class ResultViewModel
     {
-        public string Message { get; set; }
+        public string AuthorName { get; set; }
 
-        public bool WasAnswerTrue { get; set; }
+        public bool IsAnswerTrue { get; set; }
     }
 }

@@ -6,6 +6,8 @@
 
         public string AuthorName { get; set; }
 
+        public string CorrectAuthorName { get; set; }
+
         public bool? IsAnswerTrue { get; set; }
     }
 }

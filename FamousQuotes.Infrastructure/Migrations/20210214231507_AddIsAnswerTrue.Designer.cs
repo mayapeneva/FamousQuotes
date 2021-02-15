@@ -4,14 +4,16 @@ using FamousQuotes.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FamousQuotes.Infrastructure.Migrations
 {
     [DbContext(typeof(FamousQuotesDbContext))]
-    partial class FamousQuotesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210214231507_AddIsAnswerTrue")]
+    partial class AddIsAnswerTrue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace FamousQuotes.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Author", b =>
@@ -80,14 +82,6 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Quotes");
-                });
-
-            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.QuoteNotAnswered", b =>
-                {
-                    b.Property<int>("QuoteId")
-                        .HasColumnType("int");
-
-                    b.ToTable("QuotesNotAnswered");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.User", b =>

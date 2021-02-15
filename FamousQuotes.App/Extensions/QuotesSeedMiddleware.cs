@@ -23,7 +23,7 @@
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (!dbContext.Authors.Any())
+            if (dbContext.Quotes.Count() == 0)
             {
                 QuotesSeed();
             }
@@ -34,19 +34,19 @@
         private void QuotesSeed()
         {
             var jsonString = File.ReadAllText(@"Extensions\famousQuotes.json");
-            var quoteSeeds = JsonConvert.DeserializeObject<QuoteSeedDto[]>(jsonString);
+            var quotesGroupedByAuthor = JsonConvert.DeserializeObject<QuoteSeedDto[]>(jsonString).GroupBy(q => q.QuoteAuthor);
 
             var authors = new List<Author>();
-            foreach (var quoteSeed in quoteSeeds)
+            foreach (var quotes in quotesGroupedByAuthor)
             {
-                var authorName = quoteSeed.QuoteAuthor;
+                var authorName = quotes.Key;
                 var author = authors.FirstOrDefault(a => a.Name == authorName);
                 if (author is null)
                 {
                     author = new Author(authorName);
                 }
 
-                author.Quotes.Add(new Quote(author.Id, quoteSeed.QuoteText));
+                quotes.Select(q => q.QuoteText).ToHashSet().ToList().ForEach(q => author.Quotes.Add(new Quote(author.Id, q)));
                 authors.Add(author);
             }
 

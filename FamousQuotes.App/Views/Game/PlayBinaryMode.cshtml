@@ -1,17 +1,24 @@
 ﻿@model ResultViewModel
-
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="card" style="width: 18rem;">
-    @if (@Model.WasAnswerTrue)
+<div class="card text-center" style="width: 18rem;">
+    @if (@Model.IsAnswerTrue)
     {
-        <p class="green-background">@Model.Message.</p>
+        <div class="green-background">
+            <p>Correct!</p>
+            <p>The right answer is:</p>
+            <p>@Model.AuthorName.</p>
+        </div>
     }
     else
     {
-        <p class="pink-background">@Model.Message.</p>
+        <div class="pink-background">
+            <p>Sorry, you are wrong!</p>
+            <p>The right answer is:</p>
+            <p>@Model.AuthorName.</p>
+        </div>
     }
 
     <p><a class="card-link" asp-controller="Game" asp-action="IndexBinaryMode">Play more in binary mode</a></p>

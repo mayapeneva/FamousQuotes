@@ -17,6 +17,7 @@
     {
         private const string QuoteId = "QuoteId";
         private const string AuthorName = "AuthorName";
+        private const string CorrectAuthorName = "CorrectAuthorName";
 
         private const string Message = "Message";
         private const string GameOverMessage = "The game is over. Your score is ";
@@ -47,6 +48,7 @@
 
             HttpContext.Session.SetInt32(QuoteId, quote.QuoteId);
             HttpContext.Session.SetString(AuthorName, quote.AuthorOneName);
+            HttpContext.Session.SetString(CorrectAuthorName, quote.CorrectAuthorName);
 
             var quoteViewModel = Mapper.Map<QuoteViewModel>(quote);
             return View(quoteViewModel);
@@ -75,22 +77,23 @@
             {
                 QuoteId = (int)HttpContext.Session.GetInt32(QuoteId),
                 AuthorName = HttpContext.Session.GetString(AuthorName),
+                CorrectAuthorName = HttpContext.Session.GetString(CorrectAuthorName),
                 IsAnswerTrue = answer == "Yes"
             };
 
             var result = gameService.SaveAnswer(user, answerDto, true);
             var resultViewModel = new ResultViewModel
             {
-                WasAnswerTrue = result.IsAnswerTrue
+                IsAnswerTrue = result.IsAnswerTrue
             };
 
             if (result.IsAnswerTrue)
             {
-                resultViewModel.Message = CorrectAnswerMessage + result.AuthorName;
+                resultViewModel.AuthorName = result.AuthorName;
                 return this.View(resultViewModel);
             }
 
-            resultViewModel.Message = WrongAnswerMessage + result.AuthorName;
+            resultViewModel.AuthorName = result.AuthorName;
             return View(resultViewModel);
         }
 
