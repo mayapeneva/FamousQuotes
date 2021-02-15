@@ -32,15 +32,17 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.Property<bool?>("IsAnswerTrue")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuoteId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("QuoteId");
 
                     b.HasIndex("UserId");
 
@@ -80,14 +82,6 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Quotes");
-                });
-
-            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.QuoteNotAnswered", b =>
-                {
-                    b.Property<int>("QuoteId")
-                        .HasColumnType("int");
-
-                    b.ToTable("QuotesNotAnswered");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.User", b =>
@@ -291,15 +285,11 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Answer", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.Quote", "Quote")
-                        .WithMany()
-                        .HasForeignKey("QuoteId")
+                    b.HasOne("FamousQuotes.Infrastructure.Models.User", "User")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
-                        .WithMany("Answers")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Quote", b =>

@@ -16,40 +16,29 @@
 
         public QuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode)
         {
-            var unansweredQuotes = user.QuotesNotAnswered;
-            var unansweredQuotesCount = unansweredQuotes.Count;
-
-            if (unansweredQuotesCount == 0)
+            if (user.Answers is null || user.Answers.Count == 0)
             {
-                var quotesIds = DbContext.Quotes.Select(q => q.Id);
-                user.AddQuotes(quotesIds.AsEnumerable());
+                var quoteIds = DbContext.Quotes.Select(q => q.Id);
+                user.AddQuotesToBeAnswered(quoteIds.AsEnumerable());
 
                 DbContext.Users.Update(user);
                 DbContext.SaveChanges();
+            }
 
-                unansweredQuotes = user.QuotesNotAnswered;
-                unansweredQuotesCount = unansweredQuotes.Count;
-            }            
+            var unansweredQuoteIds = user.GetUnasweredQuotes();
+            var unansweredQuoteIdsCount = unansweredQuoteIds.Count();
 
             var randomQuote = new QuoteDto();
-            //if (unansweredQuotesCount == 0)
-            //{
-            //    randomQuote.Score = user.Score;
-            //    return randomQuote;
-            //}
-
             var random = new Random();
-            var randomQuoteIndex = random.Next(unansweredQuotesCount - 1);
+            var randomQuoteIndex = random.Next(unansweredQuoteIdsCount - 1);
+            var quoteId = unansweredQuoteIds.ToArray()[randomQuoteIndex];
 
-            var quoteId = unansweredQuotes.ToArray()[randomQuoteIndex].QuoteId;
             var quote = DbContext.Quotes.FirstOrDefault(q => q.Id == quoteId);
-
             var correctAuthor = quote.Author;
             randomQuote.CorrectAuthorName = correctAuthor.Name;
 
             var authors = DbContext.Authors;
             var authorsCount = authors.Count();
-
             var randomAuthorOneIndex = random.Next(authorsCount);
             var authorOne = authors.ToArray()[randomAuthorOneIndex - 1];
 
@@ -63,11 +52,11 @@
             }
 
             var randomAuthorTwoIndex = random.Next(authorsCount);
-            var authorTwo = authors.ToArray()[randomAuthorOneIndex - 1];
+            var authorTwo = authors.ToArray()[randomAuthorTwoIndex - 1];
             randomQuote.AuthorTwoName = authorTwo.Name;
 
             var randomAuthorThreeIndex = random.Next(authorsCount);
-            var authorThree = authors.ToArray()[randomAuthorOneIndex - 1];
+            var authorThree = authors.ToArray()[randomAuthorThreeIndex - 1];
             randomQuote.AuthorThreeName = authorThree.Name;
 
             return randomQuote;
@@ -88,7 +77,7 @@
                 if ((answer.AuthorName == correctAuthorName && isAnswerTrue == true)
                     || (answer.AuthorName != correctAuthorName && isAnswerTrue == false))
                 {
-                    user.AddNewQuoteAndAuthor(quoteId, answer.AuthorName, isAnswerTrue.Value);
+                    user.AddCorrectAnswer(quoteId, answer.AuthorName, isAnswerTrue.Value);
                     result.AuthorName = answer.AuthorName;
                     result.IsAnswerTrue = true;
 
@@ -98,6 +87,7 @@
                     return result;
                 }
 
+                user.AddWrongAnswer(quoteId, answer.AuthorName, isAnswerTrue.Value);
                 result.AuthorName = correctAuthorName;
                 result.IsAnswerTrue = false;
                 return result;
@@ -105,7 +95,7 @@
 
             if (answer.AuthorName == correctAuthorName)
             {
-                user.AddNewQuoteAndAuthor(quoteId, answer.AuthorName, null);
+                user.AddCorrectAnswer(quoteId, answer.AuthorName, null);
                 result.AuthorName = answer.AuthorName;
                 result.IsAnswerTrue = true;
 
@@ -115,6 +105,7 @@
                 return result;
             }
 
+            user.AddWrongAnswer(quoteId, answer.AuthorName, null);
             result.AuthorName = correctAuthorName;
             result.IsAnswerTrue = false;
             return result;

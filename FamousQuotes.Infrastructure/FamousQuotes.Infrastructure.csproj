@@ -12,8 +12,32 @@
     <Compile Remove="Migrations\20210206130501_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210206135124_InitialCreate.cs" />
     <Compile Remove="Migrations\20210206135124_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210206141041_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210206141041_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210206152556_AddAuthorNameAndQuoteText.cs" />
+    <Compile Remove="Migrations\20210206152556_AddAuthorNameAndQuoteText.Designer.cs" />
+    <Compile Remove="Migrations\20210206153355_RemoveUserIdFromAnswers.cs" />
+    <Compile Remove="Migrations\20210206153355_RemoveUserIdFromAnswers.Designer.cs" />
     <Compile Remove="Migrations\20210206231727_unknown.cs" />
     <Compile Remove="Migrations\20210206231727_unknown.Designer.cs" />
+    <Compile Remove="Migrations\20210206231825_AddIdentity.cs" />
+    <Compile Remove="Migrations\20210206231825_AddIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20210207221224_AddAnswersToUser.cs" />
+    <Compile Remove="Migrations\20210207221224_AddAnswersToUser.Designer.cs" />
+    <Compile Remove="Migrations\20210214231507_AddIsAnswerTrue.cs" />
+    <Compile Remove="Migrations\20210214231507_AddIsAnswerTrue.Designer.cs" />
+    <Compile Remove="Migrations\20210215000422_AddQuotesNotAnswered.cs" />
+    <Compile Remove="Migrations\20210215000422_AddQuotesNotAnswered.Designer.cs" />
+    <Compile Remove="Migrations\20210215201637_AddAnswersDbSet.cs" />
+    <Compile Remove="Migrations\20210215201637_AddAnswersDbSet.Designer.cs" />
+    <Compile Remove="Migrations\20210215202939_RemoveUserOverridesIdentityUser.cs" />
+    <Compile Remove="Migrations\20210215202939_RemoveUserOverridesIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20210215213854_AddAnswersToUser.cs" />
+    <Compile Remove="Migrations\20210215213854_AddAnswersToUser.Designer.cs" />
+    <Compile Remove="Migrations\20210215222205_AddAnswersToUser.cs" />
+    <Compile Remove="Migrations\20210215222205_AddAnswersToUser.Designer.cs" />
+    <Compile Remove="Migrations\20210215231328_AddIdentityAndAnswers.cs" />
+    <Compile Remove="Migrations\20210215231328_AddIdentityAndAnswers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +49,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

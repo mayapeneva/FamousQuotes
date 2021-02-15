@@ -89,7 +89,7 @@
 
             if (result.IsAnswerTrue)
             {
-                resultViewModel.AuthorName = result.AuthorName;
+                resultViewModel.AuthorName = answerDto.CorrectAuthorName;
                 return this.View(resultViewModel);
             }
 

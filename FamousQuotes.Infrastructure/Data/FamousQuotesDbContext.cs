@@ -19,11 +19,9 @@
 
         public DbSet<Author> Authors { get; set; }
 
-        public DbSet<Answer> Answers { get; set; }
-
-        public DbSet<QuoteNotAnswered> QuotesNotAnswered { get; set; }
-
         public override DbSet<User> Users { get; set; }
+
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,14 +31,6 @@
             }
 
             optionsBuilder.UseLazyLoadingProxies(true);
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.Entity<QuoteNotAnswered>()
-                .HasNoKey();
         }
     }
 }

@@ -3,7 +3,6 @@
     using FamousQuotes.Infrastructure.Data;
     using FamousQuotes.Infrastructure.Models;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.EntityFrameworkCore.Internal;
     using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.IO;
@@ -46,7 +45,7 @@
                     author = new Author(authorName);
                 }
 
-                quotes.Select(q => q.QuoteText).ToHashSet().ToList().ForEach(q => author.Quotes.Add(new Quote(author.Id, q)));
+                quotes.Select(q => q.QuoteText).ToHashSet().ToList().ForEach(qt => author.Quotes.Add(new Quote(author.Id, qt)));
                 authors.Add(author);
             }
 

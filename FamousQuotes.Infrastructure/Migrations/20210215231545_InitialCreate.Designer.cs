@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamousQuotes.Infrastructure.Migrations
 {
     [DbContext(typeof(FamousQuotesDbContext))]
-    [Migration("20210214231507_AddIsAnswerTrue")]
-    partial class AddIsAnswerTrue
+    [Migration("20210215231545_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,19 +34,21 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.Property<bool?>("IsAnswerTrue")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuoteId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuoteId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Author", b =>
@@ -285,15 +287,11 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Answer", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.Quote", "Quote")
-                        .WithMany()
-                        .HasForeignKey("QuoteId")
+                    b.HasOne("FamousQuotes.Infrastructure.Models.User", "User")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
-                        .WithMany("Answers")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Quote", b =>
