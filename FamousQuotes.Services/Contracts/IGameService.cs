@@ -5,8 +5,8 @@
 
     public interface IGameService
     {
-        QuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode);
+        QuoteDto GetRandomUnansweredQuote(FamousQuotesUser user, bool isBinaryMode);
 
-        ResultDto SaveAnswer(User user, AnswerDto answer, bool isBinaryMode);
+        ResultDto SaveAnswer(FamousQuotesUser user, AnswerDto answer, bool isBinaryMode);
     }
 }

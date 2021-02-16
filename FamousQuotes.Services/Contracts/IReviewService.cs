@@ -5,6 +5,6 @@
 
     public interface IReviewService
     {
-        AchievementsDto GetUserAchievements(User user);
+        AchievementsDto GetUserAchievements(FamousQuotesUser user);
     }
 }

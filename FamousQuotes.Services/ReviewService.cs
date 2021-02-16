@@ -12,7 +12,7 @@
         {
         }
 
-        public AchievementsDto GetUserAchievements(User user)
+        public AchievementsDto GetUserAchievements(FamousQuotesUser user)
         {
             throw new System.NotImplementedException();
         }

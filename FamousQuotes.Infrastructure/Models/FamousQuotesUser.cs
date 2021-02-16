@@ -4,27 +4,25 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class User : IdentityUser
+    public class FamousQuotesUser : IdentityUser
     {
-        private ICollection<Answer> answers;
-
-        public User()
+        public FamousQuotesUser()
         {
-            answers = new HashSet<Answer>();
+            Answers = new HashSet<Answer>();
         }
 
-        public virtual ICollection<Answer> Answers => answers.ToList().AsReadOnly();
+        public virtual ICollection<Answer> Answers { get; private set; }
 
         public int Score { get; private set; }
 
         public void AddQuotesToBeAnswered(IEnumerable<int> quoteIds)
         {
-            quoteIds.ToList().ForEach(qi => answers.Add(new Answer(qi, Id)));
+            quoteIds.ToList().ForEach(qi => Answers.Add(new Answer(qi, Id)));
         }
 
         public IEnumerable<int> GetUnasweredQuotes()
         {
-            return answers.Where(a => a.IsAnswered == false).Select(a => a.QuoteId);
+            return Answers.Where(a => a.IsAnswered == false).Select(a => a.QuoteId);
         }
 
         public void AddCorrectAnswer(int quoteId, string author, bool? isAnswerTrue)
@@ -39,7 +37,7 @@
 
         private void AddAnswer(int quoteId, string author, bool? isAnswerTrue)
         {
-            var answer = answers.FirstOrDefault(a => a.QuoteId == quoteId);
+            var answer = Answers.FirstOrDefault(a => a.QuoteId == quoteId);
             answer.AddAnswerInfo(author, isAnswerTrue);
         }
     }

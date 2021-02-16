@@ -11,7 +11,7 @@
         private readonly IReviewService reviewService;
 
         protected ReviewController(
-            UserManager<Infrastructure.Models.User> userManager,
+            UserManager<Infrastructure.Models.FamousQuotesUser> userManager,
             IMapper mapper,
             IReviewService reviewService)
             : base(userManager, mapper)

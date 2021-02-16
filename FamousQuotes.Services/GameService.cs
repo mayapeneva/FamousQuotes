@@ -14,14 +14,14 @@
         {
         }
 
-        public QuoteDto GetRandomUnansweredQuote(User user, bool isBinaryMode)
+        public QuoteDto GetRandomUnansweredQuote(FamousQuotesUser user, bool isBinaryMode)
         {
             if (user.Answers is null || user.Answers.Count == 0)
             {
                 var quoteIds = DbContext.Quotes.Select(q => q.Id);
                 user.AddQuotesToBeAnswered(quoteIds.AsEnumerable());
 
-                DbContext.Users.Update(user);
+                DbContext.FamousQuotesUsers.Update(user);
                 DbContext.SaveChanges();
             }
 
@@ -62,7 +62,7 @@
             return randomQuote;
         }
 
-        public ResultDto SaveAnswer(User user, AnswerDto answer, bool isBinaryMode)
+        public ResultDto SaveAnswer(FamousQuotesUser user, AnswerDto answer, bool isBinaryMode)
         {
             var result = new ResultDto
             {
@@ -81,7 +81,7 @@
                     result.AuthorName = answer.AuthorName;
                     result.IsAnswerTrue = true;
 
-                    DbContext.Users.Update(user);
+                    DbContext.FamousQuotesUsers.Update(user);
                     DbContext.SaveChanges();
 
                     return result;
@@ -99,7 +99,7 @@
                 result.AuthorName = answer.AuthorName;
                 result.IsAnswerTrue = true;
 
-                DbContext.Users.Update(user);
+                DbContext.FamousQuotesUsers.Update(user);
                 DbContext.SaveChanges();
 
                 return result;

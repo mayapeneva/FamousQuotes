@@ -8,17 +8,17 @@
 
     public class BaseController : Controller
     {
-        protected BaseController(UserManager<User> userManager, IMapper mapper)
+        protected BaseController(UserManager<FamousQuotesUser> userManager, IMapper mapper)
         {
             UserManager = userManager;
             Mapper = mapper;
         }
 
-        protected UserManager<User> UserManager { get; set; }
+        protected UserManager<FamousQuotesUser> UserManager { get; set; }
 
         protected IMapper Mapper { get; set; }
 
-        protected async Task<User> GetUser()
+        protected async Task<FamousQuotesUser> GetUser()
         {
             return await UserManager.GetUserAsync(this.User);
         }

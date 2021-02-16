@@ -50,7 +50,7 @@ namespace FamousQuotes.App
                 options.UseSqlServer("Server=.\\SQLExpress;Database=FamousQuotes;Trusted_Connection=True")
                     .UseLazyLoadingProxies());
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<FamousQuotesUser, IdentityRole>()
                 .AddEntityFrameworkStores<FamousQuotesDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();

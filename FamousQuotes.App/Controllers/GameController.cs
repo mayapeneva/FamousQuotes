@@ -27,7 +27,7 @@
         private readonly IGameService gameService;
 
         public GameController(
-            UserManager<User> userManager,
+            UserManager<FamousQuotesUser> userManager,
             IMapper mapper,
             IGameService gameService)
             :base(userManager, mapper)
@@ -57,7 +57,7 @@
         [HttpGet]
         public async Task<ActionResult> IndexMultipleChoicesMode()
         {
-            User user = await GetUser();
+            FamousQuotesUser user = await GetUser();
             var quote = gameService.GetRandomUnansweredQuote(user, false);
             if (string.IsNullOrWhiteSpace(quote.QuoteText))
             {

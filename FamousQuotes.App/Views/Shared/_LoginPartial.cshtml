@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using FamousQuotes.Infrastructure.Models
 
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject SignInManager<FamousQuotesUser> SignInManager
+@inject UserManager<FamousQuotesUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

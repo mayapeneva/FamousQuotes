@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamousQuotes.Infrastructure.Migrations
 {
     [DbContext(typeof(FamousQuotesDbContext))]
-    [Migration("20210215231545_InitialCreate")]
+    [Migration("20210216201058_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,10 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.Property<string>("AuthorAsAnswered")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FamousQuotesUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool?>("IsAnswerTrue")
                         .HasColumnType("bit");
 
@@ -40,13 +44,9 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.Property<int>("QuoteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("FamousQuotesUserId");
 
                     b.ToTable("Answers");
                 });
@@ -66,27 +66,7 @@ namespace FamousQuotes.Infrastructure.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Quote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Quotes");
-                });
-
-            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.User", b =>
+            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.FamousQuotesUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -151,7 +131,27 @@ namespace FamousQuotes.Infrastructure.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("FamousQuotesUser");
+                });
+
+            modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Quote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Quotes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -287,9 +287,9 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("FamousQuotes.Infrastructure.Models.Answer", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", "User")
+                    b.HasOne("FamousQuotes.Infrastructure.Models.FamousQuotesUser", "FamousQuotesUser")
                         .WithMany("Answers")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("FamousQuotesUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -314,7 +314,7 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
+                    b.HasOne("FamousQuotes.Infrastructure.Models.FamousQuotesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -323,7 +323,7 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
+                    b.HasOne("FamousQuotes.Infrastructure.Models.FamousQuotesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -338,7 +338,7 @@ namespace FamousQuotes.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
+                    b.HasOne("FamousQuotes.Infrastructure.Models.FamousQuotesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -347,7 +347,7 @@ namespace FamousQuotes.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("FamousQuotes.Infrastructure.Models.User", null)
+                    b.HasOne("FamousQuotes.Infrastructure.Models.FamousQuotesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

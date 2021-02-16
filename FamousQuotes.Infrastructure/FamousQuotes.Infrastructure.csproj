@@ -38,6 +38,14 @@
     <Compile Remove="Migrations\20210215222205_AddAnswersToUser.Designer.cs" />
     <Compile Remove="Migrations\20210215231328_AddIdentityAndAnswers.cs" />
     <Compile Remove="Migrations\20210215231328_AddIdentityAndAnswers.Designer.cs" />
+    <Compile Remove="Migrations\20210215231545_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210215231545_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210216173103_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210216173103_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210216173642_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210216173642_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210216192556_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210216192556_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

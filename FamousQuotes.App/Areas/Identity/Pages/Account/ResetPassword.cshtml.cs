@@ -16,9 +16,9 @@ namespace FamousQuotes.App.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<FamousQuotesUser> _userManager;
 
-        public ResetPasswordModel(UserManager<User> userManager)
+        public ResetPasswordModel(UserManager<FamousQuotesUser> userManager)
         {
             _userManager = userManager;
         }
