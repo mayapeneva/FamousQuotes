@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamousQuotes.App", "FamousQuotes.App\FamousQuotes.App.csproj", "{7F7AFB88-EBB1-4A27-803F-B8892FA4BECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamousQuotes.Infrastructure", "FamousQuotes.Infrastructure\FamousQuotes.Infrastructure.csproj", "{9886022C-99A5-4998-9235-41A0CEBEC6CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamousQuotes.Infrastructure", "FamousQuotes.Infrastructure\FamousQuotes.Infrastructure.csproj", "{9886022C-99A5-4998-9235-41A0CEBEC6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamousQuotes.Services", "FamousQuotes.Services\FamousQuotes.Services.csproj", "{B7227146-DC5B-48AC-B19F-A5BE8E457AD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamousQuotes.Services", "FamousQuotes.Services\FamousQuotes.Services.csproj", "{B7227146-DC5B-48AC-B19F-A5BE8E457AD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamousQuotes.Services.Tests", "FamousQuotes.Services.Tests\FamousQuotes.Services.Tests.csproj", "{4F2C68D3-F35F-4811-A1BE-BF24FBDDCDD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B7227146-DC5B-48AC-B19F-A5BE8E457AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7227146-DC5B-48AC-B19F-A5BE8E457AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7227146-DC5B-48AC-B19F-A5BE8E457AD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F2C68D3-F35F-4811-A1BE-BF24FBDDCDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F2C68D3-F35F-4811-A1BE-BF24FBDDCDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F2C68D3-F35F-4811-A1BE-BF24FBDDCDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F2C68D3-F35F-4811-A1BE-BF24FBDDCDD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -39,8 +39,8 @@
 
             var authors = DbContext.Authors;
             var authorsCount = authors.Count();
-            var randomAuthorOneIndex = random.Next(authorsCount);
-            var authorOne = authors.ToArray()[randomAuthorOneIndex - 1];
+            var randomAuthorOneIndex = random.Next(authorsCount - 1);
+            var authorOne = authors.ToArray()[randomAuthorOneIndex];
 
             randomQuote.QuoteId = quote.Id;
             randomQuote.QuoteText = quote.Text;
@@ -51,12 +51,12 @@
                 return randomQuote;
             }
 
-            var randomAuthorTwoIndex = random.Next(authorsCount);
-            var authorTwo = authors.ToArray()[randomAuthorTwoIndex - 1];
+            var randomAuthorTwoIndex = random.Next(authorsCount - 1);
+            var authorTwo = authors.ToArray()[randomAuthorTwoIndex];
             randomQuote.AuthorTwoName = authorTwo.Name;
 
-            var randomAuthorThreeIndex = random.Next(authorsCount);
-            var authorThree = authors.ToArray()[randomAuthorThreeIndex - 1];
+            var randomAuthorThreeIndex = random.Next(authorsCount - 1);
+            var authorThree = authors.ToArray()[randomAuthorThreeIndex];
             randomQuote.AuthorThreeName = authorThree.Name;
 
             return randomQuote;
